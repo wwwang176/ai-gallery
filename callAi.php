@@ -2,14 +2,13 @@
 require_once(__DIR__.'/connect.php');
 
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
-
-$sql = "SELECT * FROM `queue` WHERE `status` = 0 ORDER BY `date` ASC LIMIT 0,1";
+//讀取15分鐘內還沒被處理的項目
+$sql = "SELECT * FROM `queue` WHERE `status` = 0 AND `date` >= :date ORDER BY `date` ASC LIMIT 0,1";
 $sth = $DBC->prepare($sql);
-$sth->execute();
+$sth->execute(array(
+    'date' => date('Y-m-d H:i:s', time() - (60 * 15)),
+));
 $queue = $sth->fetch(PDO::FETCH_ASSOC);
 
 //沒有需要產生的項目
@@ -26,11 +25,7 @@ $sth->execute(array(
 
 
 try {
-    
-    echo "<pre>";
-    print_r($queue);
-    echo "</pre>";
-    
+
     $prompt =  '{
         "contents": [
             {
@@ -75,10 +70,6 @@ try {
     
     $response = json_decode($response, true);
     
-    echo "<pre>";
-    print_r($response);
-    echo "</pre>";
-    
     if(isset($response['error'])){
         throw new Exception('response has error.'."\n");
     }
@@ -89,21 +80,15 @@ try {
     
     $pattern = '/```(javascript|js)(.*?)```/s';
     if (preg_match($pattern, $text, $matches)) {
-        
-        echo "<pre>";
-        print_r($matches);
-        echo "</pre>";
-
         $code = $matches[2];
     } else {
-        // echo "No match found.";
-        exit;
+        throw new Exception('code not match.'."\n");
     }
     
     $code = trim($code ?? '');
     
     if(empty($code)){
-        throw new Exception('code not match.'."\n");
+        throw new Exception('code empty.'."\n");
     }
     
     
