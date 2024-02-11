@@ -1,13 +1,5 @@
 <?php
 require_once(__DIR__.'/connect.php');
-
-
-$sql = "SELECT * FROM `gallery` ORDER BY `date` DESC LIMIT 0,50";
-$sth = $DBC->prepare($sql);
-$sth->execute();
-$gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,22 +29,6 @@ $gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
         <div class="galleryBox">
-            <?php
-                foreach($gallerys as $each){
-            ?>
-                    <div class="gallery">
-                        <div class="inner">
-                            <iframe class="previewIframe" src="preview.php?id=<?=$each['id'];?>" frameborder="0"></iframe>
-                        </div>
-                        <div class="infoBox">
-                            <div class="name"><?=$each['name'];?></div>
-                            <div class="author">create by <?=$each['author'];?></div>
-                            <div class="date"><?=$each['date'];?></div>
-                        </div>
-                    </div>
-            <?php
-                }
-            ?>
         </div>
     </div>
 </body>
@@ -78,6 +54,10 @@ var AweAjaxLoading = new function(){
 
 $(function(){
 
+    //取得列表
+    getList();
+
+    //按下產生
     $('.creatSideBox .generate').on('click', function(){
 
         let noun = $('.creatSideBox input[type="text"]').val();
@@ -102,6 +82,8 @@ $(function(){
                 let id = result.id || 0;
 
                 if(id != 0){
+
+                    callAi();
                     
                     AweAjaxLoading.start();
                     checkGenerateStatus(id);
@@ -117,6 +99,63 @@ $(function(){
     });
 
 });
+
+function getList()
+{
+    $.ajax({
+        url: 'list.php',
+        dataType: 'json',
+        method: 'get',
+        data: {
+        },
+        success: function(result){
+            console.log(result);
+
+            result.forEach(element => {
+
+                //檢查是否存在，存在則跳過
+                if($('.galleryBox .gallery[data-id="'+element.id+'"]').length > 0){
+                    return;
+                }
+
+                renderGallery(element);
+            });
+        },
+        error: function(){
+        }
+    });
+}
+
+function renderGallery(data)
+{
+    let galleryTemplate = `
+        <div class="gallery" data-id="${data.id}">
+            <div class="inner">
+                <iframe class="previewIframe" src="preview.php?id=${data.id}" frameborder="0"></iframe>
+            </div>
+            <div class="infoBox">
+                <div class="name">${data.name}</div>
+                <div class="author">create by ${data.author}</div>
+                <div class="date">${data.date}</div>
+            </div>
+        </div>
+    `;
+    $('.galleryBox').prepend(galleryTemplate);
+}
+
+function callAi()
+{
+    $.ajax({
+        url: 'callAi.php',
+        method: 'get',
+        data: {
+        },
+        success: function(result){
+        },
+        error: function(){
+        }
+    });
+}
 
 function checkGenerateStatus(id)
 {
@@ -136,7 +175,9 @@ function checkGenerateStatus(id)
             console.log(result);
 
             if(result.status == 2){
-                window.location.reload();
+                // window.location.reload();
+                AweAjaxLoading.end();
+                getList();
             }
             else{
                 checkGenerateStatusTimer = setTimeout(function(id){
