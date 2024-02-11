@@ -1,0 +1,87 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+  font-family: "Noto Sans", "Noto Sans TC", "Roboto", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  color: #222;
+}
+
+.mainWrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.creatSideBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+.creatSideBox input[type=text] {
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.creatSideBox .btn {
+  width: 150px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+  padding: 10px;
+  background-color: #CCC;
+  cursor: pointer;
+}
+
+.galleryBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.galleryBox .gallery {
+  width: 300px;
+  margin: 10px;
+  border: 1px solid #CCC;
+}
+.galleryBox .gallery .inner {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+.galleryBox .gallery .inner .previewIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.galleryBox .gallery .infoBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #DDD;
+  padding: 10px;
+}
