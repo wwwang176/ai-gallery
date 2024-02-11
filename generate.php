@@ -2,6 +2,7 @@
 require_once(__DIR__.'/connect.php');
 
 $noun = trim($_POST['noun']);
+$noun = mb_substr($noun, 0, 15, 'utf-8');
 
 //沒給名詞
 if(empty($noun)){
