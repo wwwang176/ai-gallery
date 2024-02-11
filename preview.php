@@ -28,6 +28,7 @@ if(empty($gallery)){
     <style>
         body{
             overflow: hidden;
+            background-color: #F9F9F9;
         }
     </style>
 </head>

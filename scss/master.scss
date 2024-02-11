@@ -7,11 +7,57 @@
 
 body
 {
-    background-color: #fff;
+    background-color: #333;
     font-family: 'Noto Sans', 'Noto Sans TC', 'Roboto', sans-serif;
     font-weight: 500;
+    font-size: 15px;
+    line-height: 1.2;
     letter-spacing: 0.1px;
-    color: #222;
+    color: #fff;
+
+    
+	&.ajax-loading
+	{
+        .loading
+        {
+            display: block;
+        }
+    }
+}
+
+.loading
+{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+
+    &::before
+    {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        margin-top: -20px;
+        margin-left: -20px;
+        border: 5px solid #CCC;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: loading 1s infinite linear;
+    }
+}
+
+@keyframes loading
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .mainWrap
@@ -29,6 +75,7 @@ body
 .creatSideBox
 {
     display: flex;
+    padding: 20px;
     margin-bottom: 20px;
 
     input[type="text"]
@@ -48,7 +95,8 @@ body
         align-items: center;
         height: 50px;
         padding: 10px;
-        background-color: #CCC;
+        background-color: #3266e3;
+        color: #FFF;
         cursor: pointer;
     }
 }
@@ -63,7 +111,7 @@ body
     {
         width: 300px;
         margin: 10px;
-        border: 1px solid #CCC;
+        border: 1px solid #666;
         
         .inner
         {
@@ -86,8 +134,25 @@ body
         {
             display: flex;
             justify-content: space-between;
-            background-color: #DDD;
+            flex-wrap: wrap;
+            background-color: #111;
             padding: 10px;
+
+            .name
+            {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            .author
+            {
+                color: #AAA;
+                font-size: 10px;
+            }
+            .date
+            {
+                color: #AAA;
+                font-size: 10px;
+            }
         }
     }
 }
