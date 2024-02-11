@@ -74,31 +74,53 @@ body
 
 .creatSideBox
 {
-    display: flex;
-    padding: 20px;
-    margin-bottom: 20px;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.2);
 
-    input[type="text"]
+    .inner
     {
-        width: 100%;
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-    }
-
-    .btn
-    {
-        width: 150px;
-        flex-shrink: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        padding: 10px;
-        background-color: #3266e3;
-        color: #FFF;
-        cursor: pointer;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    
+        @include rwd(650px){
+            flex-wrap: wrap;
+        }
+    
+        input[type="text"]
+        {
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            padding: 10px;
+        }
+    
+        .btn
+        {
+            width: 150px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            padding: 10px;
+            background-color: #3266e3;
+            color: #FFF;
+            cursor: pointer;
+    
+            @include rwd(650px){
+                width: 100%;
+            }
+        }
     }
+
 }
 
 .galleryBox
@@ -106,6 +128,11 @@ body
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding-top: 100px;
+    
+    @include rwd(650px){
+        padding-top: 150px;
+    }
 
     .gallery
     {

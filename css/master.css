@@ -70,19 +70,36 @@ body.ajax-loading .loading {
   margin: 0 auto;
 }
 .creatSideBox {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.creatSideBox .inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  margin-bottom: 20px;
 }
-.creatSideBox input[type=text] {
+@media (max-width: 650px) {
+  .creatSideBox .inner {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
+.creatSideBox .inner input[type=text] {
   width: 100%;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
+  padding: 10px;
 }
-.creatSideBox .btn {
+.creatSideBox .inner .btn {
   width: 150px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
@@ -101,6 +118,11 @@ body.ajax-loading .loading {
   color: #FFF;
   cursor: pointer;
 }
+@media (max-width: 650px) {
+  .creatSideBox .inner .btn {
+    width: 100%;
+  }
+}
 
 .galleryBox {
   display: -webkit-box;
@@ -111,6 +133,12 @@ body.ajax-loading .loading {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  padding-top: 100px;
+}
+@media (max-width: 650px) {
+  .galleryBox {
+    padding-top: 150px;
+  }
 }
 .galleryBox .gallery {
   width: 300px;

@@ -31,8 +31,10 @@ $gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="mainWrap">
         <div class="creatSideBox">
-            <input type="text" placeholder="Enter a noun and AI will draw a picture for you...">
-            <div class="btn generate">Generate!</div>
+            <div class="inner">
+                <input type="text" placeholder="Enter a noun and AI will draw a picture for you...">
+                <div class="btn generate">Generate!</div>
+            </div>
         </div>
         <div class="galleryBox">
             <?php
