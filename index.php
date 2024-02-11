@@ -111,6 +111,8 @@ function getList()
         success: function(result){
             console.log(result);
 
+            result = result.reverse();
+
             result.forEach(element => {
 
                 //檢查是否存在，存在則跳過
@@ -131,7 +133,7 @@ function renderGallery(data)
     let galleryTemplate = `
         <div class="gallery" data-id="${data.id}">
             <div class="inner">
-                <iframe class="previewIframe" src="preview.php?id=${data.id}" frameborder="0"></iframe>
+                <iframe class="previewIframe" src="preview.php?id=${data.id}" frameborder="0" loading="lazy"></iframe>
             </div>
             <div class="infoBox">
                 <div class="name">${data.name}</div>
