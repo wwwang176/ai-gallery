@@ -26,6 +26,9 @@ $gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;500;700&family=Noto+Sans:wght@100;300;500;700&family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="loading"></div>
+
     <div class="mainWrap">
         <div class="creatSideBox">
             <input type="text" placeholder="Enter a noun and AI will draw a picture for you...">
@@ -41,7 +44,8 @@ $gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="infoBox">
                             <div class="name"><?=$each['name'];?></div>
-                            <div class="author"><?=$each['author'];?></div>
+                            <div class="author">create by <?=$each['author'];?></div>
+                            <div class="date"><?=$each['date'];?></div>
                         </div>
                     </div>
             <?php
@@ -51,6 +55,24 @@ $gallerys = $sth->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </body>
 <script>
+
+var checkGenerateStatusTimer;
+var AweAjaxLoading = new function(){
+    this.deep = 0;
+    this.start = function(){
+        $('body').addClass('ajax-loading');
+        this.deep++;
+    }
+
+    this.end = function(){
+        this.deep--;
+        if(this.deep <= 0){
+            $('body').removeClass('ajax-loading');
+            this.deep = 0;
+        }
+    }
+};
+
 
 $(function(){
 
@@ -62,6 +84,8 @@ $(function(){
             return;
         }
 
+        AweAjaxLoading.start();
+
         $.ajax({
             url: 'generate.php',
             dataType: 'json',
@@ -70,15 +94,60 @@ $(function(){
                 noun: noun
             },
             success: function(result){
+                AweAjaxLoading.end();
+                console.log(result);
+
+                let id = result.id || 0;
+
+                if(id != 0){
+                    
+                    AweAjaxLoading.start();
+                    checkGenerateStatus(id);
+                }
 
             },
-            error: function(){}
-        })
+            error: function(){
+                AweAjaxLoading.end();
+            }
+        });
         
 
     });
 
 });
+
+function checkGenerateStatus(id)
+{
+    clearTimeout(checkGenerateStatusTimer);
+
+    AweAjaxLoading.start();
+
+    $.ajax({
+        url: 'generateSataus.php',
+        dataType: 'json',
+        method: 'post',
+        data: {
+            id: id
+        },
+        success: function(result){
+            AweAjaxLoading.end();
+            console.log(result);
+
+            if(result.status == 2){
+                window.location.reload();
+            }
+            else{
+                checkGenerateStatusTimer = setTimeout(function(id){
+                    checkGenerateStatus(id);
+                }, 5000, id);
+            }
+
+        },
+        error: function(){
+            AweAjaxLoading.end();
+        }
+    });
+}
 
 </script>
 </html>

@@ -23,7 +23,10 @@ $sth->execute(array(
     'date' => date('Y-m-d H:i:s'),
 ));
 
+$id = $DBC->lastInsertId();
+
 echo json_encode([
+    'id' => $id,
     'message' => 'ok'
 ]);
 
