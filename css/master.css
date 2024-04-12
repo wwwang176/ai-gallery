@@ -124,6 +124,17 @@ body.ajax-loading .loading {
   }
 }
 
+.infoBox {
+  padding-top: 150px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+@media (max-width: 650px) {
+  .infoBox {
+    padding-top: 170px;
+  }
+}
+
 .galleryBox {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -133,12 +144,7 @@ body.ajax-loading .loading {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding-top: 100px;
-}
-@media (max-width: 650px) {
-  .galleryBox {
-    padding-top: 150px;
-  }
+  padding-top: 50px;
 }
 .galleryBox .gallery {
   width: 300px;

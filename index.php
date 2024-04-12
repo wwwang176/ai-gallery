@@ -28,6 +28,10 @@ require_once(__DIR__.'/connect.php');
                 <div class="btn generate">Generate!</div>
             </div>
         </div>
+        <div class="infoBox">
+            <p>What is this?</p>
+            <p>This is a humorous project. Give AI a sentence or a noun, and it will use JavaScript + canvas to generate interesting (and quite ugly) images.</p>
+        </div>
         <div class="galleryBox">
         </div>
     </div>
